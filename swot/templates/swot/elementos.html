@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Elementos {%endblock%}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-1">
+    <a href="{% url 'swot:home' %}"> inicio</a>
+  </div>
+  <div class="col-5">
+    {% for i in fatores %}
+    {{i.tipo}} - {{i.descricao}} <br>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <a href="{% url 'swot:adicionar_fatores' elemento.id %}">add</a>
+  </div>
+</div>
+    
+{% endblock %}

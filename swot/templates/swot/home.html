@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {%endblock%}
+
+{% block content %}
+
+<h1>bem vindo ao fofa</h1>
+
+<div class="col-4"><br><br>
+    <h5>Meus planejamentos</h5>
+    
+    {% for i in plan %}
+        <a href="{% url 'swot:planejamento' i.id %}">{{i}}</a> <br>
+    {% empty %}
+        Você ainda não possui planejamentos. <br>
+    {%endfor%}
+    
+    <br><br><a href="{% url 'swot:adicionar_planejamento' %}">Novo Planejamento</a><br>
+</div>
+<div class="col"><br><br>
+    <h5>Planejamentos em que estou</h5>
+</div>
+
+
+
+{% endblock %}
