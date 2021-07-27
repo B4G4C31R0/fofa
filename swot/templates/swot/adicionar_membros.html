@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %} Adicionar Membros {%endblock%}
+
+{% block head %}
+ <!-- Imporando o AJAX -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ {%endblock%}
+
+{% block content %}
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-8">
+          <ol>
+            <li><a href="{% url 'swot:home' %}">Home</a></li>
+            <li><a href="{% url 'swot:elementos' plan.id %}">Elementos</a></li>
+            <li>Adicionar Membros</li>
+          </ol>
+          <h2>Adicionar Membros ao Projeto {{plan}}</h2>
+        </div>
+
+        <div class="col">
+          <div class="row"> </div>
+          
+          <nav class="navbar ">  <!-- Barra de Pesquisa -->
+            <div class="container-fluid">
+              <form class="d-flex">
+                <input id="pesquisa" name='pesquisa' class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                {% if request.GET.pesquisa %}
+                <button class="text-white btn btn-info" type="submit"><i class="bx bx-search-alt"></i></button>
+                  <a href="{% url 'users:adicionar_membros' plan.id %}"><font color="black">Voltar</font> </a>
+                {% else %}
+                  <button class="text-white btn btn-info" type="submit"><i class="bx bx-search-alt"></i></button>
+                {%endif%}
+              </form>
+            </div>
+          </nav> <!-- Fim da barra -->
+
+        </div>
+      </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+
+  
+
+
+
+<!-- ======= Adicionar Membros Section ======= -->
+
+<section id="team2" class="team2">
+  <div class="container" data-aos="fade-up">
+    
+    <div id="member_info_id" class="row">
+      
+    </div>
+    
+  </div>
+
+  
+    
+
+
+</section><!-- End Adicionar Membros Section -->
+
+<script>
+
+function get_member(){
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'users:getUsuarios' %}",
+        success: function(response){
+            $("#member_info_id").empty();
+            console.log(response)
+            for (var key in response.membros){
+              if ( response.membros[key].fields.planejamento.includes( {{plan.id}} ) ){
+                  var botao = '<i class="bx bx-check-circle"></i> Usuário Adicionado'  
+              }
+              else {
+                
+                var botao = ` <form id="form-post-` + response.membros[key].id + `" method="POST">
+                                {% csrf_token %}
+                                <input type="button" onclick="testando('` + response.membros[key].fields.usuario + `', {{plan.id}})" class="btn btn-outline-info btn-sm" value="Adicionar">
+                              </form>`
+              }
+
+              var temp = `
+                <div class="col-lg-4 mb-4">
+                  <div class="member d-flex align-items-start">
+                    <div class="member-info">
+                      <h4>` + response.membros[key].fields.primeiro_nome + ` - ID ` + response.membros[key].pk + `</h4>
+                      <p> Alguma descrição aqui, se quiser.</p>
+                      ` + botao + `
+                    </div>
+                  </div>
+                </div>
+                `
+
+              
+                $("#member_info_id").append(temp);
+            }
+        }
+    })
+}
+    
+$(document).ready(function(){
+
+    get_member()
+
+});
+
+
+$(document).on('submit','#form-post', function(e){
+    
+    e.preventDefault() // evita que a página seja recarregada ao clicar no botão de envio (submit), esta função evita os eventos padrões, no caso, o evento padrão do submit é recarregar a página.
+
+});
+
+
+function testando(usuario, planejamento){
+  $.ajax({
+        type: 'POST',
+        url: "{% url 'users:add_membro' %}",
+        data: {
+            usuario: usuario,
+            planej: planejamento,
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+
+        success: function(data){
+            get_member()
+        },
+    });
+}
+
+    
+  </script>
+
+
+{%endblock%}

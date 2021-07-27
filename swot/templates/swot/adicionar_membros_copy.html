@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %} Adicionar Membros {%endblock%}
+
+{% block content %}
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-8">
+          <ol>
+            <li><a href="{% url 'swot:home' %}">Home</a></li>
+            <li><a href="{% url 'swot:elementos' plan.id %}">Elementos</a></li>
+            <li>Adicionar Membros</li>
+          </ol>
+          <h2>Adicionar Membros ao Projeto {{plan}}</h2>
+        </div>
+
+        <div class="col">
+          <div class="row"> </div>
+          
+          <nav class="navbar ">  <!-- Barra de Pesquisa -->
+            <div class="container-fluid">
+              <form class="d-flex">
+                <input name='pesquisa' class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                {% if request.GET.pesquisa %}
+                <button class="text-white btn btn-info" type="submit"><i class="bx bx-search-alt"></i></button>
+                  <a href="{% url 'users:adicionar_membros' plan.id %}"><font color="black">Voltar</font> </a>
+                {% else %}
+                  <button class="text-white btn btn-info" type="submit"><i class="bx bx-search-alt"></i></button>
+                {%endif%}
+              </form>
+            </div>
+          </nav> <!-- Fim da barra -->
+
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+
+  
+
+
+
+  <!-- ======= Adicionar Membros Section ======= -->
+  <section id="team2" class="team2">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+
+        {% for i in usuarios %}
+            {% if forloop.counter > 3 %}
+                <div class="col-lg-4 mt-4">
+            {% else %}
+                <div class="col-lg-4">
+            {%endif%}
+            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+              <div class="member-info">
+                <h4 id="member_info_id">{{i.first_name}} - ID:{{i.id}}</h4>
+                <p>Universidade do Estado do Rio Grande do Norte</p>
+                <div class="social">
+                    {% if i not in plan.membros.all %}
+                      <a href="{% url 'users:add_membro' plan.id i.id %}"><i class="bx bx-plus-circle"></i> Adicionar  </a>
+                    {% else %}
+                      <i class="bx bx-check-circle"></i> Usuário Adicionado
+                    {%endif%}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% empty %}
+                <h4>Usuário não encontrado, <a href="{% url 'swot:adicionar_membros' plan.id %}">retornar para lista completa</a>.</h4>
+        {%endfor%}
+
+      </div>
+    </div>
+
+
+  </section><!-- End Adicionar Membros Section -->
+
+  
+
+
+{%endblock%}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{%block title%} Login {%endblock%}
+
+{% block content %} <br><br><br><br>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card auth-card">
+            <div class="card-body">
+                <h4 class="card-title text-center">Entrar</h4>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
+
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                </form>
+
+                <br>Não possui uma conta? <a href="{% url 'users:registro' %}">Registre-se</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

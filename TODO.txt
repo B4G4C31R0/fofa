@@ -1,0 +1,1 @@
+Ajeitar o Navbar que fica na cor que está de fundo enquanto não mexer o scroll. Mudar para ficar em uma cor fixa.

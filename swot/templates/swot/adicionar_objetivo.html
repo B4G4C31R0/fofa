@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} Adicionar Fator {%endblock%}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            {{form.errors}}
+            <input type="submit" class="button" value="Cadastrar">
+        </form>
+    </div>
+</div>
+
+{%endblock%}

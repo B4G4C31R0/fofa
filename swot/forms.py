@@ -11,4 +11,16 @@ class FatoresForm(forms.ModelForm):
 class PlanejamentoForm(forms.ModelForm):
     class Meta:
         model = Planejamento
-        fields = ('titulo',)
+        fields = ('titulo','descricao')
+
+
+class ObjetivoForm(forms.ModelForm):
+    class Meta:
+        model= Objetivo
+        fields= ('descricao',)
+
+
+class ObjetivoConcluidoForm(forms.ModelForm):
+    class Meta:
+        model= Objetivo
+        fields= ('concluido',)

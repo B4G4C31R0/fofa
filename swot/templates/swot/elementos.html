@@ -4,21 +4,220 @@
 
 {% block content %}
 
-<div class="row">
-  <div class="col-1">
-    <a href="{% url 'swot:home' %}"> inicio</a>
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+  <div class="container">
+    <ol>
+      <li><a href="{% url 'swot:home' %}">Home</a></li>
+      <li>Elementos</li>
+    </ol>
   </div>
-  <div class="col-5">
-    {% for i in fatores %}
-    {{i.tipo}} - {{i.descricao}} <br>
-    {% endfor %}
-  </div>
-</div>
+</section><!-- End Breadcrumbs -->
 
-<div class="row">
-  <div class="col">
-    <a href="{% url 'swot:adicionar_fatores' elemento.id %}">add</a>
+
+
+<!-- ======= Elementos Section ======= -->
+<section id="elementos" class="services section-bg">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Elementos de {{plan}}</h2>
+      <p>Aqui você deve definir quais usuários irão participar de <strong>{{plan}}</strong> e também definir os líderes para cada elemento do seu planejamento.</p>
+    </div>
+
+    <div class="row">
+      {% for i in elementos %}
+        <div class="col-xl-3 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"> <!-- O 'd-flex' que ficava apos 'col-md-6' faz com que todos os card tenham o mesmo tamanho sempre, embora que um tenha menos conteudo que o outro -->
+          <div class="icon-box">
+            {% if i.tipo_elemento == "Forças" %}
+              <div class="icon"><i class="text-info bx bx-meteor"></i></div>
+              <div class="forc">
+                <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}                        </a></h4>
+              </div>
+            {% elif i.tipo_elemento == "Oportunidades" %}
+            <div class="oport">
+              <div class="icon"><i class="text-success bx bx-message-rounded-edit"></i></div>
+              <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}            </a></h4>
+            </div>
+            {% elif i.tipo_elemento == "Fraquezas" %}
+            <div class="fraq">
+              <div class="icon"><i class="text-warning bx bx-dislike"></i></div>
+              <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}                   </a></h4>
+            </div>
+            {% elif i.tipo_elemento == "Ameaças" %}
+            <div class="ameac">
+              <div class="icon"><i class="text-danger bx bx-error-circle"></i></div>
+              <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}                     </a></h4>
+            </div>
+            {% endif%}
+
+            {% for j in fatores %}
+              {% if j.elemento == i %}
+                  <i class="text-dark bx bx-been-here"></i> {{j}} <br><br>
+              {% endif %}
+            
+            {%endfor%}
+
+          </div>
+        </div>
+      {%endfor%}
+    </div>
+
   </div>
-</div>
+</section><!-- End Elementos Section -->
+
+
+
+<!-- ======= Membros Section ======= -->
+<section id="membros" class="membros section-bg2">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Membros</h2>
+      <p>Aqui você deve adicionar os membros que irão fazer parte do seu projeto. <a href="{% url 'users:adicionar_membros' plan.id%}">Adicione agora.</a></p>
+    </div>
+
+    <div class="row">
+
+      {% for i in membros %}
+        <div class="col-lg-6 mt-4">
+          <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="{{forloop.counter}}00">
+            <div class="pic">
+              {% if not i.avatar %}
+                <img src="/static/assets/img/team/user.png" class="img-fluid" alt="">
+              {% else %}
+                <img src="/media/{{i.avatar}}" class="img-fluid" alt="">
+              {% endif %}
+            </div>
+            <div class="member-info">
+              <h4><a href="#">{{i.usuario.first_name}} - {{forloop.counter}}</a></h4>
+              {% if i.lider_elemento != null %}
+                <span><strong>Lider:</strong> {{i.lider_elemento}}</span>
+                <span><strong>Elementos:</strong>
+                  {% for j in i.elemento.all %}
+                    {% if forloop.last %} 
+                      {{j}}
+                    {% else %}
+                      {{j}},
+                    {%endif%} 
+                  {%endfor%}
+                </span>
+              {% else %}
+                <span><strong>Elementos:</strong>
+                  {% for j in i.elemento.all %}
+                    {% if forloop.last %} 
+                      {{j}}
+                    {% else %}
+                      {{j}},
+                    {%endif%}
+                  {% empty %}
+                    Ainda não participa de nenhum elemento. 
+                  {%endfor%}
+                </span>
+              {% endif %}
+              
+              <p>
+                alguma descrição aqui
+              </p>
+              <p>
+                <div class="dropup">
+                  <button class="text-white btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Liderança
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li><a class="dropdown-item" href="#">Forças</a></li>
+                    <li><a class="dropdown-item" href="#">Oportunidades</a></li>
+                    <li><a class="dropdown-item" href="#">Fraquezas</a></li>
+                    <li><a class="dropdown-item" href="#">Ameaças</a></li>
+                    <!-- <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li> -->
+                  </ul>
+                </div>
+              </p>
+              
+              <div class="social">
+                {% if i.facebook %}
+                  <a href="{{i.facebook}}" target="_blank"><i class="ri-facebook-fill"></i></a>
+                {%endif%}
+                {% if i.instagram %}
+                  <a href="{{i.instagram}}" target="_blank"><i class="ri-instagram-fill"></i></a>
+                {%endif%}
+                {% if i.linkedin %}
+                  <a href="{{i.linkedin}}" target="_blank"><i class="ri-linkedin-box-fill"></i></a>
+                {%endif%}
+                {% if i.git %}
+                  <a href="{{i.git}}" target="_blank"><i class="ri-github-fill"></i></a>
+                {%endif%}
+                {% if i.twitter %}
+                  <a href="{{i.twitter}}" target="_blank"><i class="ri-twitter-fill"></i></a>
+                {% elif not i.facebook and not i.linkedin and not i.instagram and not i.git and not i.twitter %}
+                <p>Não possui redes sociais cadastradas.</p>
+                {%endif%} 
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        Tem membro n
+      {%endfor%}
+
+      <!-- <div class="col-lg-6 mt-4 mt-lg-0">
+        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="200">
+          <div class="pic"><img src="/static/assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>Sarah Jhonson</h4>
+            <span>Product Manager</span>
+            <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
+            <div class="social">
+              <a href=""><i class="ri-twitter-fill"></i></a>
+              <a href=""><i class="ri-facebook-fill"></i></a>
+              <a href=""><i class="ri-instagram-fill"></i></a>
+              <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mt-4">
+        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="300">
+          <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>William Anderson</h4>
+            <span>CTO</span>
+            <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
+            <div class="social">
+              <a href=""><i class="ri-twitter-fill"></i></a>
+              <a href=""><i class="ri-facebook-fill"></i></a>
+              <a href=""><i class="ri-instagram-fill"></i></a>
+              <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mt-4">
+        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="400">
+          <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>Amanda Jepson</h4>
+            <span>Accountant</span>
+            <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+            <div class="social">
+              <a href=""><i class="ri-twitter-fill"></i></a>
+              <a href=""><i class="ri-facebook-fill"></i></a>
+              <a href=""><i class="ri-instagram-fill"></i></a>
+              <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+
+  </div>
+</section><!-- End Membros Section -->
+
+
+
     
 {% endblock %}

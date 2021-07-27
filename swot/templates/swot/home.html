@@ -4,22 +4,131 @@
 
 {% block content %}
 
-<h1>bem vindo ao fofa</h1>
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
 
-<div class="col-4"><br><br>
-    <h5>Meus planejamentos</h5>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+        <h1>Seja bem-vindo(a) ao FOFA, {{request.user.first_name}}.</h1>
+        <h2>Melhores soluções para o seu negócio.</h2>
+        <div class="d-flex justify-content-center justify-content-lg-start">
+          <a href="#plan" class="btn-get-started scrollto">Vamos lá!</a>
+          <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
+        </div>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+        <img src="static/assets/img/swot66.png" class="img-fluid animated" alt="">
+      </div>
+    </div>
+  </div>
+
+</section><!-- End Hero -->
+
+<!-- ======= Cliens Section ======= -->
+<section id="cliens" class="cliens section-bg">
+  <div class="container">
+
+    <div class="row" data-aos="zoom-in">
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/petcc.png" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/di.png" class="img-fluid" alt="">
+      </div>
+      
+      <!-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/client-1.png" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/client-2.png" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/client-3.png" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/client-4.png" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/client-5.png" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+        <img src="static/assets/img/clients/client-6.png" class="img-fluid" alt="">
+      </div> -->
+
+    </div>
+
+  </div>
+</section><!-- End Cliens Section -->
+
+
+<!-- ======= Why Us Section (Planejamentos) ======= -->
+<section id="plan" class="why-us section-bg">
+  <div class="container-fluid" data-aos="fade-up">
+
+    <div class="row">
+
+      <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+        <div class="content">
+          <h3>Meus <strong>Planejamentos</strong></h3>
+          <p>
+            Aqui você pode gerenciar todos os planejamentos que criou.
+          </p><br>
+          <p>
+            <a href="{% url 'swot:adicionar_planejamento' %}">Novo Planejamento <i class="bx bx-plus-circle"></i></a>
+          </p>
+        </div>
+
+      
+        
+        <div class="accordion-list">
+          <ul>
+            {% for i in plan %}
+              <li>
+                <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-{{i.id}}"><span>#</span> {{i}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                <div id="accordion-list-{{i.id}}" class="collapse show" data-bs-parent=".accordion-list">
+                  <p>
+                    {{i.descricao}} <br><br>
+                    <a href="{% url 'swot:elementos' i.id %}">Gerenciar
+                      <i class="bx bx-cog">                                           </i> <!-- não são espaços-->
+                    </a>
+                  </p>
+              </li>
+
+              {% empty %}
+                <li>
+                  Você ainda não possui planejamentos ativos. Para criar um, basta clicar em <strong>Novo Planejamento</strong>.
+                  
+                </li>
+              {%endfor%}
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("static/assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
     
-    {% for i in plan %}
-        <a href="{% url 'swot:planejamento' i.id %}">{{i}}</a> <br>
-    {% empty %}
-        Você ainda não possui planejamentos. <br>
-    {%endfor%}
-    
-    <br><br><a href="{% url 'swot:adicionar_planejamento' %}">Novo Planejamento</a><br>
-</div>
-<div class="col"><br><br>
-    <h5>Planejamentos em que estou</h5>
-</div>
+    </div>
+
+  </div>
+</section><!-- End Why Us Section -->
+
 
 
 

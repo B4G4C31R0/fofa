@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %} Fatores {%endblock%}
+
+{% block content %} 
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+  <div class="container">
+    <ol>
+      <li><a href="{% url 'swot:home' %}">Home</a></li>
+      <li><a href="{% url 'swot:elementos' elemento.planejamento.id %}">Elementos</a></li>
+      <li>Fatores</li>
+    </ol>
+  </div>
+</section><!-- End Breadcrumbs -->
+
+
+<!-- ======= Frequently Asked Questions Section ======= -->
+<section id="faq" class="faq section-bg">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Fatores: {{elemento}}</h2>
+      <p>Aqui você visualiza e define quais fatores são os(as) <strong>{{elemento}}</strong> da sua organização <strong>{{elemento.planejamento}}</strong>. Cada fator é composto por uma série de <strong>ações</strong> para mantê-lo. Portanto, sua equipe deve decidir quais <strong>ações</strong> deverão ser tomadas. :D</p>
+    </div>
+
+    <div class="faq-list">
+      <div data-aos="fade-up" data-aos-delay="100">
+        <br><a href="{% url 'swot:adicionar_fatores' elemento.id %}">Novo Fator <i class="bx bx-plus-circle"></i></a>
+      </div><br>
+      <ul>
+        {% for i in fatores %}
+          <!-- Se quiser tudo aberto: primeira classe que encontrar substitui por class="collapsed", e a segunda que encontrar substitui por class="collapsed-show" -->
+          <li data-aos="fade-up" data-aos-delay="200">
+            <i class="bx bx-check-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-list-{{i.id}}"> {{i.descricao}} - Por {{i.criador.first_name}}<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+            <div id="faq-list-{{i.id}}" class="collapse" data-bs-parent=".faq-list">
+              <p>
+                {% for j in objetivos %}
+                  {% if j.fator == i %}
+
+                      <a class="letra-perfil2" href="{% url 'swot:objetivo' j.id %}">
+                        <font color=#4F4F4F><i class="text-info bx bx-merge "></i> {{j}}</font>
+                        <a class="letra-perfil" href="#"> - Por {{j.criador.first_name}}</a>
+                      </a><br>
+                                        
+                  {%endif%}
+                {%endfor%}
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-8">
+                        <a class= "getstarted scrollto" href="{% url 'swot:adicionar_objetivo' i.id %}">Nova Ação <i class="bx bx-plus-circle"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  
+              </p>
+            </div>
+          </li>
+        {%endfor%}
+
+        
+
+      </ul>
+    </div>
+
+  </div>
+</section><!-- End Frequently Asked Questions Section -->
+
+{% endblock %}
