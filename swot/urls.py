@@ -10,6 +10,10 @@ urlpatterns = [
     path('elementos/<int:id>', elementos, name='elementos'),
     path('adicionar_fatores/<int:id>', adicionar_fatores, name='adicionar_fatores'),
     path('adicionar_objetivo/<int:id>', adicionar_objetivo, name='adicionar_objetivo'),
+    path('liderElemento/<int:id>/<int:membro>', liderElemento, name='liderElemento'),
+
+    path('editarMembro/<int:id_plan>/<int:id_memb>', editarMembro, name='editarMembro'),
+    path('editarFator/<int:id>', editarFator, name= 'editarFator'),
 
 
     path('base',base,name='base'),

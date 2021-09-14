@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Editar Fator {%endblock%}
+
+{% block content %}
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="{% url 'swot:home' %}">Home</a></li>
+        <li><a href="{% url 'swot:elementos' fator.elemento.planejamento.id %}">Elementos</a></li>
+        <li>Fatores</li>
+      </ol>
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+<div class="row">
+    <div class="col">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            {{form.errors}}
+            <input type="submit" class="button" value="Atualizar">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

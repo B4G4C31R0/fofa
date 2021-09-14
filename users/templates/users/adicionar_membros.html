@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %} Adicionar Membros {%endblock%}
+
+{% block content %}
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-8">
+          <ol>
+            <li><a href="{% url 'swot:home' %}">Home</a></li>
+            <li><a href="{% url 'swot:elementos' plan.id %}">Elementos</a></li>
+            <li>Adicionar Membros</li>
+          </ol>
+          <h2>Adicionar Membros ao Projeto {{plan}}</h2>
+        </div>
+
+        <div class="col">
+          <div class="row"> </div>
+          
+          <nav class="navbar ">  <!-- Barra de Pesquisa -->
+            <div class="container-fluid">
+              <div class="d-flex">
+                <input id="txtPesquisa" name="txtPesquisa" class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+              </div>
+            </div>
+          </nav> <!-- Fim da barra -->
+
+        </div>
+      </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+
+
+<!-- ======= Adicionar Membros Section (team2) ======= -->
+
+<section id="team2" class="team2">
+  
+  <div class="container" data-aos="fade-up">
+    <div id="member_info_id" class="row">
+      <!-- Ajax fazendo essa parte aqui -->
+    </div>
+  </div>
+
+</section><!-- End Adicionar Membros Section -->
+
+
+
+
+
+<script>
+
+function get_member(){
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'users:getUsuarios' plan.id %}",
+        success: function(response){
+            $("#member_info_id").empty();
+
+            for (var key in response.membros){
+              if ( response.plan[0].fields.membros.includes(response.membros[key].pk) ){
+                var botao = `Este usuário já participa do seu planejamento.`
+                
+              }
+              else {
+                if ( response.conv[0].fields.convidado.includes(response.membros[key].pk) ){
+                  var botao = "convite foi enviado."
+                }
+                else {
+                  var botao = ` <form id="form-post-` + response.membros[key].id + `" method="POST">
+                                  {% csrf_token %}
+                                  <input type="button" onclick="newConvite(` + response.membros[key].pk + `, ` + response.conv[0].pk + `)" class="btn btn-outline-info btn-sm" value="Convidar">
+                                </form>`
+                }
+              }
+
+              if(response.membros[key].fields.avatar != ""){
+                var avatar = `<img src="/media/`+response.membros[key].fields.avatar+`" class="img-fluid" alt="">`
+              }
+              else{
+                var avatar = `<img src="/static/assets/img/team/user.png" class="img-fluid" alt="">`
+              }
+
+              var temp = `
+                <div class="col-lg-2"></div>
+                <div class="col-8">
+                  <div class="member">
+                    <div class="d-flex align-items-start">
+                      <div class="pic">
+                        `+avatar+`
+                      </div>
+                      <div class="member-info">
+                        <h4>` + response.membros[key].fields.nome + ` - ID ` + response.membros[key].pk + `</h4>
+                        <p> Alguma descrição aqui, se quiser.</p>
+                        <p></p>
+                        ` + botao + `
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2"></div>
+                `
+                
+                $("#member_info_id").append(temp);
+            }
+        }
+    })
+}
+
+
+function busca(value,targetSelector){
+        $(targetSelector).show();
+        $(targetSelector+':not(:contains("'+ value +'"))').hide();
+    }
+    $('#txtPesquisa').keyup(function () {
+       busca($(this).val(), '.member');
+    })
+
+    
+$(document).ready(function(){
+
+    get_member(), busca()
+
+});
+
+
+function add_member(usuario, planejamento){
+  $.ajax({
+        type: 'POST',
+        url: "{% url 'users:add_membro' %}",
+        data: {
+            usuario: usuario,
+            planej: planejamento,
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+
+        success: function(data){
+            get_member()
+        },
+    });
+}
+
+function newConvite(convidadoId, conviteId){
+  $.ajax({
+        type: 'POST',
+        url: "{% url 'users:novoConvite' %}",
+        data: {
+          convidadoId: convidadoId,
+          conviteId: conviteId,
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+
+        success: function(data){
+            get_member()
+        },
+    });
+}
+    
+  </script>
+
+
+{%endblock%}

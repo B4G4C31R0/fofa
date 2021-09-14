@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %} Gerenciar Membro {%endblock%}
+
+{% block content %}
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <ol>
+        <li><a href="{% url 'swot:home' %}">Home</a></li>
+        <li><a href="{% url 'swot:elementos' plan.id %}">Planejamento</a></li>
+        <li>Gerenciar Membro</li>
+      </ol>
+      <h2>Gerenciar Membro {{membro.nome}} - {{plan}}</h2>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+
+
+  <section class="inner-page">
+    <div class="container">
+      <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+            
+            <div class="col-3">
+              {% if membro in elementos.0.member.all %}
+                <div class="form-check form-switch">
+                  <input class="form-check-input" name="força" type="checkbox" id="força" checked>
+                  <label class="form-check-label" for="força">Força</label>
+                </div>
+              {% else %}
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="força" type="checkbox" id="força">
+                    <label class="form-check-label" for="força">Força</label>
+                </div>
+              {% endif %}
+
+              {% if membro in elementos.1.member.all %}
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="oport" type="checkbox" id="oport" checked>
+                    <label class="form-check-label" for="oport">Oportunidades</label>
+                </div>
+              {% else %}
+                <div class="form-check form-switch">
+                  <input class="form-check-input" name="oport" type="checkbox" id="oport">
+                  <label class="form-check-label" for="oport">Oportunidades</label>
+                </div>
+              {% endif %}
+
+              {% if membro in elementos.2.member.all %}
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="fraq" type="checkbox" id="fraq" checked>
+                    <label class="form-check-label" for="fraq">Fraquezas</label>
+                </div>
+              {% else %}
+                <div class="form-check form-switch">
+                  <input class="form-check-input" name="fraq" type="checkbox" id="fraq">
+                  <label class="form-check-label" for="fraq">Fraquezas</label>
+                </div>
+              {% endif %}
+
+              {% if membro in elementos.3.member.all %}
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="ameac" type="checkbox" id="ameac" checked>
+                    <label class="form-check-label" for="ameac">Ameaças</label>
+                </div>
+              {% else %}
+                <div class="form-check form-switch">
+                  <input class="form-check-input" name="ameac" type="checkbox" id="ameac">
+                  <label class="form-check-label" for="ameac">Ameaças</label>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="col-3">
+              
+              <!-- <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Liderança
+                </button>
+                <ul class="dropdown-menu">
+                  <li><h6 class="dropdown-header">Dropdown header</h6></li>
+                  <li><a name="lider_forca" id="lider_forca" class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+              </div> -->
+
+            </div> <!-- fim  col -->
+          </div> <!-- fim do row -->
+          
+          <br><input class="text-white btn btn-info" type="submit" value="Salvar">
+      </form>
+        
+      
+    </div>
+  </section>
+
+
+
+{%endblock%}

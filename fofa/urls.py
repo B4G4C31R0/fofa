@@ -25,3 +25,11 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# # Quando for pro lordi
+# urlpatterns = [
+#     path('fofa/', include('swot.urls')),
+#     path('fofa/users/', include('django.contrib.auth.urls')),
+#     path('fofa/users/', include('users.urls')),
+#     path('fofa/admin/', admin.site.urls),
+# ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

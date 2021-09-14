@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Adicionar Fator {%endblock%}
+
+{% block content %}
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <ol>
+        <li><a href="{% url 'swot:home' %}">Home</a></li>
+        <li>Convites</li>
+      </ol>
+      <h2>Convites para Planejamentos</h2>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col">
+      {% for convite in conv %} <br>
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <!-- <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text">Você recebeu uma solitação de <strong>{{convite.lider.nome}}</strong> para participar do projeto <strong>{{convite.planejamento}}.</strong></p>
+            <a href="{% url 'users:convAceito' membro.id convite.planejamento.id convite.id %}" class="card-link">Aceitar</a>
+            <a href="{% url 'users:convRecusado' convite.id membro.id %}" class="recusar card-link">Recusar</a>
+          </div>
+        </div>
+      {% empty %}
+      <br>
+      <p>Você não possui solicitações.</p> <br><br><br><br><br><br>
+      {% endfor%}
+    </div>
+</div>
+
+
+
+{%endblock%}

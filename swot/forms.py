@@ -23,4 +23,4 @@ class ObjetivoForm(forms.ModelForm):
 class ObjetivoConcluidoForm(forms.ModelForm):
     class Meta:
         model= Objetivo
-        fields= ('concluido',)
+        fields= ('descricao','concluido')

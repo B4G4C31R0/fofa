@@ -2,22 +2,26 @@
 
 {% block title %} Elementos {%endblock%}
 
+{% block head %}
+ <!-- Imporando o JQuerry/AJAX -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ {% endblock %}
+
 {% block content %}
 
 <!-- ======= Breadcrumbs ======= -->
-<section id="breadcrumbs" class="breadcrumbs">
+<section id="elementos" class="breadcrumbs">
   <div class="container">
     <ol>
       <li><a href="{% url 'swot:home' %}">Home</a></li>
-      <li>Elementos</li>
+      <li>Planejamento</li>
     </ol>
   </div>
 </section><!-- End Breadcrumbs -->
 
 
-
-<!-- ======= Elementos Section ======= -->
-<section id="elementos" class="services section-bg">
+<!-- ======= Featured Services Section ======= -->
+<section id="featured-services" class="featured-services section-bg">
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">
@@ -27,44 +31,102 @@
 
     <div class="row">
       {% for i in elementos %}
-        <div class="col-xl-3 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"> <!-- O 'd-flex' que ficava apos 'col-md-6' faz com que todos os card tenham o mesmo tamanho sempre, embora que um tenha menos conteudo que o outro -->
-          <div class="icon-box">
-            {% if i.tipo_elemento == "Forças" %}
-              <div class="icon"><i class="text-info bx bx-meteor"></i></div>
-              <div class="forc">
-                <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}                        </a></h4>
+        {% if i.tipo_elemento == "Forças" %}
+          <div class="col-md-6 col-lg-3 align-items-stretch mb-5 mb-lg-0"> <!-- Removi o 'd-flex' que ficava após 'col-md-6', ele fazia com que todos os card tenham o mesmo tamanho sempre, embora que um tenha menos conteudo que o outro -->
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-box-forc">
+                <div class="icon">
+                  <div class="icon_forc">
+                    <a class="tt" href="{% url 'swot:fatores' i.id %}"><i class="bx bx-bolt-circle"></i> </a>
+                  </div>
+                </div>
+                <h4 class="title"><a href="{% url 'swot:fatores' i.id %}"> {{i}}                               </a></h4>
+                {% for j in fatores %}
+                  {% if j.elemento == i %}
+                  <div class="i-forc">
+                    <p class="description">
+                      <i class="bx bx-bolt-circle"></i> {{j}}
+                    </p>
+                  </div><p></p>
+                  {% endif %}
+                {%endfor%}
               </div>
-            {% elif i.tipo_elemento == "Oportunidades" %}
-            <div class="oport">
-              <div class="icon"><i class="text-success bx bx-message-rounded-edit"></i></div>
-              <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}            </a></h4>
             </div>
-            {% elif i.tipo_elemento == "Fraquezas" %}
-            <div class="fraq">
-              <div class="icon"><i class="text-warning bx bx-dislike"></i></div>
-              <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}                   </a></h4>
-            </div>
-            {% elif i.tipo_elemento == "Ameaças" %}
-            <div class="ameac">
-              <div class="icon"><i class="text-danger bx bx-error-circle"></i></div>
-              <h4><a href="{% url 'swot:fatores' i.id %}">{{i}}                     </a></h4>
-            </div>
-            {% endif%}
-
-            {% for j in fatores %}
-              {% if j.elemento == i %}
-                  <i class="text-dark bx bx-been-here"></i> {{j}} <br><br>
-              {% endif %}
-            
-            {%endfor%}
-
           </div>
-        </div>
+        {% elif i.tipo_elemento == "Oportunidades" %}
+          <div class="col-md-6 col-lg-3 align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-box-oport">
+                <div class="icon">
+                  <div class="icon_oport">
+                    <a class="tt" href="{% url 'swot:fatores' i.id %}"><i class="bx bx-message-rounded-edit"></i></a>
+                  </div>
+                </div>
+                <h4 class="title"><a href="{% url 'swot:fatores' i.id %}">{{i}}                </a></h4>
+                {% for j in fatores %}
+                  {% if j.elemento == i %}
+                    <div class="i-oport">
+                      <p class="description">
+                        <i class="bx bx-message-rounded-edit"></i> {{j}}   
+                      </p>
+                    </div><p></p>
+                  {% endif %}
+                {%endfor%}
+              </div>
+            </div>
+          </div>
+        {% elif i.tipo_elemento == "Fraquezas" %}
+          <div class="col-md-6 col-lg-3 align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-box-fraq">
+                <div class="icon">
+                  <div class="icon_fraq">
+                    <a class="tt" href="{% url 'swot:fatores' i.id %}"><i class="bx bx-dislike"></i></a>
+                  </div>
+                </div>
+                <h4 class="title"><a href="{% url 'swot:fatores' i.id %}">{{i}}                         </a></h4>
+                {% for j in fatores %}
+                  {% if j.elemento == i %}
+                    <div class="i-fraq">
+                      <p class="description">
+                        <i class="bx bx-dislike"></i> {{j}}
+                      </p>
+                    </div><p></p>
+                  {% endif %}
+                {%endfor%}
+              </div>
+            </div>
+          </div>
+        {% elif i.tipo_elemento == "Ameaças" %}
+          <div class="col-md-6 col-lg-3 align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-box-ameac">
+                <div class="icon">
+                  <div class="icon_ameac">
+                    <a class="tt" href="{% url 'swot:fatores' i.id %}"><i class="bx bx-error-circle"></i></a>
+                  </div>
+                </div>
+                <h4 class="title"><a href="{% url 'swot:fatores' i.id %}">{{i}}                            </a></h4>
+                {% for j in fatores %}
+                  {% if j.elemento == i %}
+                    <div class="i-ameac">
+                      <p class="description">
+                        <i class="bx bx-error-circle"></i> {{j}}   
+                      </p>
+                    </div><p></p>
+                  {% endif %}
+                {%endfor%}
+              </div>
+            </div>
+          </div>
+        {% endif %}
       {%endfor%}
     </div>
 
   </div>
-</section><!-- End Elementos Section -->
+</section><!-- End Featured Services Section -->
+
+
 
 
 
@@ -74,14 +136,14 @@
 
     <div class="section-title">
       <h2>Membros</h2>
-      <p>Aqui você deve adicionar os membros que irão fazer parte do seu projeto. <a href="{% url 'users:adicionar_membros' plan.id%}">Adicione agora.</a></p>
+      <p>Aqui você deve adicionar os membros que irão fazer parte do seu projeto. <a href="{% url 'users:adicionar_membros' plan.id %}">Adicione agora.</a></p>
     </div>
 
     <div class="row">
 
-      {% for i in membros %}
-        <div class="col-lg-6 mt-4">
-          <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="{{forloop.counter}}00">
+      {% for i in plan.membros.all %}
+        <div class="col-lg-6 mb-3">
+          <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="{{forloop.counter}}0">
             <div class="pic">
               {% if not i.avatar %}
                 <img src="/static/assets/img/team/user.png" class="img-fluid" alt="">
@@ -91,49 +153,35 @@
             </div>
             <div class="member-info">
               <h4><a href="#">{{i.usuario.first_name}} - {{forloop.counter}}</a></h4>
-              {% if i.lider_elemento != null %}
-                <span><strong>Lider:</strong> {{i.lider_elemento}}</span>
-                <span><strong>Elementos:</strong>
-                  {% for j in i.elemento.all %}
-                    {% if forloop.last %} 
-                      {{j}}
-                    {% else %}
-                      {{j}},
-                    {%endif%} 
-                  {%endfor%}
-                </span>
-              {% else %}
-                <span><strong>Elementos:</strong>
-                  {% for j in i.elemento.all %}
-                    {% if forloop.last %} 
-                      {{j}}
-                    {% else %}
-                      {{j}},
-                    {%endif%}
-                  {% empty %}
-                    Ainda não participa de nenhum elemento. 
-                  {%endfor%}
-                </span>
-              {% endif %}
+              {% for j in elementos %}
+                {% if j.lider == i %}
+                  <span><strong>Lider:</strong> {{j}}</span>
+                {%endif%}
+              {% endfor %}
               
+              <span><strong>Pertence:</strong>
+                {% for j in elementos %}
+                    {% if i in j.member.all %}
+                      {{j}}
+                  {% endif %}
+                {% endfor %}
+              </span>
+                <!-- <span>Não é <strong>Lider:</strong></span> -->
+                
+                
+              
+              {% if request.user == plan.lider.usuario %}
               <p>
-                alguma descrição aqui
+                <a href="{% url 'swot:editarMembro' plan.id i.id %}">Gerenciar <i class="bx bx-wrench"></i></a>
               </p>
-              <p>
-                <div class="dropup">
-                  <button class="text-white btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                    Liderança
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><a class="dropdown-item" href="#">Forças</a></li>
-                    <li><a class="dropdown-item" href="#">Oportunidades</a></li>
-                    <li><a class="dropdown-item" href="#">Fraquezas</a></li>
-                    <li><a class="dropdown-item" href="#">Ameaças</a></li>
-                    <!-- <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Separated link</a></li> -->
-                  </ul>
-                </div>
-              </p>
+              <p><strong>Liderança</strong></p>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="{% url 'swot:liderElemento' elementos.0.id i.id %}" class="buta1 btn-sm">Forças</a>
+                <a href="{% url 'swot:liderElemento' elementos.1.id i.id %}" class="btn btn-outline-success btn-sm">Oportunidades</a>
+                <a href="{% url 'swot:liderElemento' elementos.2.id i.id %}" class="btn btn-outline-warning btn-sm">Fraquezas</a>
+                <a href="{% url 'swot:liderElemento' elementos.3.id i.id %}" class="btn btn-outline-danger btn-sm">Ameaças</a>
+              </div>
+              {% endif %}
               
               <div class="social">
                 {% if i.facebook %}
@@ -218,6 +266,90 @@
 </section><!-- End Membros Section -->
 
 
+<!-- <script>
 
+  function get_member(){
+      $.ajax({
+          type: 'GET',
+          url: "{% url 'users:getUsuarios' plan.id %}",
+          success: function(response){
+              $("#member_info_id").empty();
+  
+              for (var key in response.membros){
+                if ( response.plan[0].fields.membros.includes( response.membros[key].pk ) ){
+                    var botao = '<i class="bx bx-check-circle"></i> Usuário Adicionado'  
+                }
+                else {
+                  var botao = ` <form id="form-post-` + response.membros[key].id + `" method="POST">
+                                  {% csrf_token %}
+                                  <input type="button" onclick="add_member(` + response.membros[key].fields.usuario + `, {{plan.id}})" class="btn btn-outline-info btn-sm" value="Adicionar">
+                                </form>`
+                }
+  
+                if(response.membros[key].fields.avatar != ""){
+                  var avatar = `<img src="/media/`+response.membros[key].fields.avatar+`" class="img-fluid" alt="">`
+                }
+                else{
+                  var avatar = `<img src="/static/assets/img/team/user.png" class="img-fluid" alt="">`
+                }
+  
+                var temp = `
+                  <div class="col-lg-4 mt-4">
+                    <div class="member">
+                      <div class="d-flex align-items-start">
+                        <div class="pic">
+                          `+avatar+`
+                        </div>
+                        <div class="member-info">
+                          <h4>` + response.membros[key].fields.nome + ` - ID ` + response.membros[key].pk + `</h4>
+                          <p> Alguma descrição aqui, se quiser.</p>
+                          <p></p>
+                          ` + botao + `
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  `
+                  
+                  $("#member_info_id").append(temp);
+              }
+          }
+      })
+  }
+  
+  
+  function busca(value,targetSelector){
+          $(targetSelector).show();
+          $(targetSelector+':not(:contains("'+ value +'"))').hide();
+      }
+      $('#txtPesquisa').keyup(function () {
+         busca($(this).val(), '.member');
+      })
+  
+      
+  $(document).ready(function(){
+  
+      get_member(), busca()
+  
+  });
+  
+  
+  function add_member(usuario, planejamento){
+    $.ajax({
+          type: 'POST',
+          url: "{% url 'users:add_membro' %}",
+          data: {
+              usuario: usuario,
+              planej: planejamento,
+              csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+          },
+  
+          success: function(data){
+              get_member()
+          },
+      });
+  }
+      
+    </script> -->
     
 {% endblock %}
