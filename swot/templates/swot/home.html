@@ -102,7 +102,6 @@
         <div class="accordion-list">
           <ul>
             {% for i in plan %}
-            {% if membro in i.membros.all %}
                 <li>
                   <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-{{i.id}}"><span>#</span> {{i}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-{{i.id}}" class="collapse show" data-bs-parent=".accordion-list">
@@ -124,7 +123,6 @@
                       
                     </p>
                 </li>
-              {% endif %}
               {% empty %}
                 <li>
                   Você ainda não possui planejamentos ativos. Para criar um, basta clicar em <strong>Novo Planejamento</strong>.
@@ -148,11 +146,3 @@
 
 
 {% endblock %}
-
-<script>
-  function teste (num){
-    return num*3;
-  }
-
-  var m = teste(3);
-</script>

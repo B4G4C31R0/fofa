@@ -17,7 +17,7 @@
 
 
 <!-- ======= Frequently Asked Questions Section ======= -->
-<section id="faq" class="faq section-bg">
+<section id="fatores" class="fatores section-bg">
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">
@@ -25,7 +25,7 @@
       <p>Aqui você visualiza e define quais fatores são os(as) <strong>{{elemento}}</strong> da sua organização <strong>{{elemento.planejamento}}</strong>. Cada fator é composto por uma série de <strong>ações</strong> para mantê-lo. Portanto, sua equipe deve decidir quais <strong>ações</strong> deverão ser tomadas. :D</p>
     </div>
 
-    <div class="faq-list">
+    <div class="fatores-list">
       <div data-aos="fade-up" data-aos-delay="100">
         <br><a href="{% url 'swot:adicionar_fatores' elemento.id %}">Novo Fator <i class="bx bx-plus-circle"></i></a>
       </div><br>
@@ -36,18 +36,20 @@
             <!-- Condição pra saber se o usuario logado foi quem criou o fator. -->
             {% if request.user == i.criador.usuario or request.user == i.planejamento.lider.usuario or request.user == i.elemento.lider.usuario %}
                 <i class="bx bx-check-circle icon-help"></i> <!-- icone do "V" -->
-                <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-list-{{i.id}}">
-                  {{i.descricao}} - Por {{i.criador.nome}}  <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i>
+                <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#fatores-list-{{i.id}}" id="{{i.id}}">
+                  #{{i.id}} {{i.descricao}} - Por {{i.criador.nome}}  <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i>
                 </a>
-                <a href="{% url 'swot:editarFator' i.id %}">Editar</a>
+                <a href="{% url 'swot:editarFator' i.id %}">Ver Detalhes</a>
+                <!-- <a class="coment-link" href="{% url 'swot:editarFator' i.id %}">Comentários(24)</a> -->
               {% else %}
                 <i class="bx bx-check-circle icon-help"></i> <!-- icone do "V" -->
-                <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-list-{{i.id}}">
+                <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#fatores-list-{{i.id}}">
                   {{i.descricao}} - Por {{i.criador.nome}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i>
                 </a>
+                <a href="{% url 'swot:editarFator' i.id %}">Ver Detalhes</a>
               {% endif %}
 
-            <div id="faq-list-{{i.id}}" class="collapse" data-bs-parent=".faq-list">
+            <div id="fatores-list-{{i.id}}" class="collapse" data-bs-parent=".fatores-list">
               <p>
                 {% for j in objetivos %}
                   {% if j.fator == i %}
@@ -75,13 +77,12 @@
             </div>
           </li>
         {%endfor%}
-
-        
-
       </ul>
-    </div>
 
+    </div>
   </div>
 </section><!-- End Frequently Asked Questions Section -->
+
+
 
 {% endblock %}

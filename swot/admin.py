@@ -17,7 +17,15 @@ class FatorAdmin(admin.ModelAdmin):
 
 
 class ObjetivoAdmin(admin.ModelAdmin):
-    list_display = ['criador','fator','descricao','concluido','id',]
+    list_display = ['criador','descricao','fator','elemento','concluido','id',]
+
+
+class ComentarioFatorAdmin(admin.ModelAdmin):
+    list_display = ['comentario','membro','fator','horario']
+
+
+class ComentarioObjetivoAdmin(admin.ModelAdmin):
+    list_display = ['comentario','membro','objetivo']
     
 
 # class Admin(admin.ModelAdmin):
@@ -27,3 +35,5 @@ admin.site.register(Planejamento, PlanejamentoAdmin)
 admin.site.register(Elementos, ElementoAdmin)
 admin.site.register(Fatores, FatorAdmin)
 admin.site.register(Objetivo, ObjetivoAdmin)
+admin.site.register(ComentarioFator, ComentarioFatorAdmin)
+admin.site.register(ComentarioObjetivo, ComentarioObjetivoAdmin)

@@ -88,6 +88,7 @@
           {% else %}
           <li id="convites" class="dropdown"><a href="#"><span>Minha Conta</span> <!--<span class="badge bg-danger">!</span>--><i class="bi bi-chevron-down"></i> </a>
             <ul>
+              <!-- Na hora de fazer login, essas duas linhas abaixo estão impedindo -->
               <li><a href="{% url 'users:perfil' request.user.id %}">Perfil</a></li>
               <li><a href="{% url 'users:convites' request.user.id %}">Convites <!--<span class="badge bg-danger">Novo</span>--></a></li>
           {% endif %}
@@ -203,7 +204,7 @@
   <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
   <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <!-- <script src=" static 'assets/vendor/php-email-form/validate.js' "></script> Por algum motivo que não sei o que é, isso faz com que o formulário de contato não funcione, por isso desativei.-->
   <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
   <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
 

@@ -1715,6 +1715,103 @@ section {
   margin-left: 8px;
 }
 
+/* Todos os comentários */
+
+.todos-coments .member {
+  position: relative;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 5px;
+  background: #fff;
+  transition: 0.5s;
+  margin-left: 100px;
+  margin-bottom: 30px;
+}
+
+.todos-coments .member .pic {
+  overflow: hidden;
+  max-width:50px;
+  max-height:50px;
+  min-width: 50px;
+  min-height: 50px;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+}
+
+.todos-coments .member .member-info {
+  padding-left: 30px;
+}
+
+.todos-coments .member h4 {
+  word-wrap: break-word;
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 15px;
+  color: #37517e;
+}
+
+.todos-coments .member span {
+  display: block;
+  font-size: 15px;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 500;
+}
+
+.todos-coments .member span::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 1px;
+  background: #cbd6e9;
+  bottom: 0;
+  left: 0;
+}
+
+.todos-coments .member p {
+  word-wrap: break-word;
+  margin: 10px 0 0 0;
+  font-size: 14px;
+}
+
+.todos-coments .member .social {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.todos-coments .member .social a {
+  transition: ease-in-out 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  color: #37517e;
+  background: #eff2f8;
+}
+
+.todos-coments .member .social a i {
+  color: #37517e;
+  font-size: 30px;
+  margin: 0 2px;
+}
+
+.todos-coments .member .social a:hover {
+  color: white;
+  background: #017c16;
+}
+
+.todos-coments .member .social a:hover i {
+  color: #fff;
+}
+
+.todos-coments .member .social a + a {
+  margin-left: 8px;
+}
+
 /*--------------------------------------------------------------
 # Pricing
 --------------------------------------------------------------*/
@@ -1841,9 +1938,11 @@ section {
   }
 }
 
+
 /*--------------------------------------------------------------
 # Frequently Asked Questions
 --------------------------------------------------------------*/
+
 .faq .faq-list {
   padding: 0 100px;
 }
@@ -1924,8 +2023,91 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Fatores
+--------------------------------------------------------------*/
+.fatores .fatores-list {
+  padding: 0 100px;
+}
+
+.fatores .fatores-list ul {
+  padding: 0;
+  list-style: none;
+}
+
+.fatores .fatores-list li + li {
+  margin-top: 15px;
+}
+
+.fatores .fatores-list li {
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+}
+
+.fatores .fatores-list a {
+  display: block;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  padding: 0 30px;
+  outline: none;
+  cursor: pointer;
+}
+
+.fatores .fatores-list .icon-help {
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+  left: 20px;
+  color: #47b2e4;
+}
+
+.fatores .fatores-list .icon-show, .fatores .fatores-list .icon-close {
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.fatores .fatores-list p {
+  margin-bottom: 0;
+  padding: 10px 0 0 0;
+}
+
+.fatores .fatores-list .icon-show {
+  display: none;
+}
+
+.fatores .fatores-list a.collapsed {
+  color: #37517e;
+  transition: 0.3s;
+}
+
+.fatores .fatores-list a.collapsed:hover {
+  color: #47b2e4;
+}
+
+.fatores .fatores-list a.collapsed .icon-show {
+  display: inline-block;
+}
+
+.fatores .fatores-list a.collapsed .icon-close {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .fatores .fatores-list {
+    padding: 0;
+  }
+}
+
+/*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/
+
 .contact .info {
   border-top: 3px solid #47b2e4;
   border-bottom: 3px solid #47b2e4;
@@ -1997,6 +2179,8 @@ section {
   color: #fff;
 }
 
+/* A PARTE DE PREENCHER É AQUI, O QUE ESTÁ ANTES NAO TEM CAMPO DE PREENCHER */
+
 .contact .php-email-form {
   width: 100%;
   border-top: 3px solid #47b2e4;
@@ -2004,6 +2188,8 @@ section {
   padding: 30px;
   background: #fff;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+  margin-left: 300px;
+  margin-right: 300px;
 }
 
 .contact .php-email-form .form-group {
@@ -2091,12 +2277,261 @@ section {
   background: #47b2e4;
   border: 0;
   padding: 12px 34px;
+  margin-left: 215px;
   color: #fff;
   transition: 0.4s;
   border-radius: 50px;
+  align-items: center;
 }
 
 .contact .php-email-form button[type="submit"]:hover {
+  background: #209dd8;
+}
+
+/* BOTAO EDITADO */
+.contact .php-email-form .novo-planejamento button[type="submit"] {
+  background: #47b2e4;
+  border: 0;
+  padding: 12px 34px;
+  margin-left: 215px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+  align-items: center;
+}
+
+.contact .php-email-form .novo-planejamento button[type="submit"]:hover {
+  background: #209dd8;
+}
+
+.contact .php-email-form .novo-fator button[type="submit"] {
+  background: #47b2e4;
+  border: 0;
+  padding: 12px 34px;
+  margin-left: 230px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+  align-items: center;
+}
+
+.contact .php-email-form .novo-fator button[type="submit"]:hover {
+  background: #209dd8;
+}
+
+.contact .php-email-form .atualizar button[type="submit"] {
+  background: #47b2e4;
+  border: 0;
+  padding: 12px 34px;
+  margin-left: 240px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+  align-items: center;
+}
+
+.contact .php-email-form .atualizar button[type="submit"]:hover {
+  background: #209dd8;
+}
+
+@-webkit-keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*--------------------------------------------------------------
+# Comentários
+--------------------------------------------------------------*/
+
+.comentarios .info {
+  border-top: 3px solid #47b2e4;
+  border-bottom: 3px solid #47b2e4;
+  padding: 30px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.1);
+}
+
+.comentarios .info i {
+  font-size: 20px;
+  color: #47b2e4;
+  float: left;
+  width: 44px;
+  height: 44px;
+  background: #e7f5fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.comentarios .info h4 {
+  padding: 0 0 0 60px;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #37517e;
+}
+
+.comentarios .info p {
+  padding: 0 0 10px 60px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #6182ba;
+}
+
+.comentarios .info .email p {
+  padding-top: 5px;
+}
+
+.comentarios .info .social-links {
+  padding-left: 60px;
+}
+
+.comentarios .info .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #333;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+  margin-right: 10px;
+}
+
+.comentarios .info .social-links a:hover {
+  background: #47b2e4;
+  color: #fff;
+}
+
+.comentarios .info .email:hover i, .comentarios .info .address:hover i, .comentarios .info .phone:hover i {
+  background: #47b2e4;
+  color: #fff;
+}
+
+/* A PARTE DE PREENCHER É AQUI, O QUE ESTÁ ANTES NAO TEM CAMPO DE PREENCHER */
+
+.comentarios .php-email-form {
+  width: 100%;
+  border-top: 3px solid #47b2e4;
+  border-bottom: 3px solid #47b2e4;
+  padding: 30px;
+  background: #fff;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.comentarios .php-email-form .form-group {
+  padding-bottom: 8px;
+}
+
+.comentarios .php-email-form .validate {
+  display: none;
+  color: red;
+  margin: 0 0 15px 0;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.comentarios .php-email-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.comentarios .php-email-form .error-message br + br {
+  margin-top: 25px;
+}
+
+.comentarios .php-email-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.comentarios .php-email-form .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+.comentarios .php-email-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #18d26e;
+  border-top-color: #eee;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+
+.comentarios .php-email-form .form-group {
+  margin-bottom: 20px;
+}
+
+.comentarios .php-email-form label {
+  padding-bottom: 8px;
+}
+
+.comentarios .php-email-form input, .comentarios .php-email-form textarea {
+  box-shadow: none;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.comentarios .php-email-form input:focus, .comentarios .php-email-form textarea:focus {
+  border-color: #47b2e4;
+}
+
+.comentarios .php-email-form input {
+  height: 44px;
+}
+
+.comentarios .php-email-form textarea {
+  padding: 10px 12px;
+}
+
+.comentarios .php-email-form button[type="submit"] {
+  background: #47b2e4;
+  border: 0;
+  padding: 12px 34px;
+  margin-left: 0px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+  align-items: center;
+}
+
+.comentarios .php-email-form button[type="submit"]:hover {
   background: #209dd8;
 }
 
@@ -2226,11 +2661,11 @@ section {
   background: #fff;
 }
 
-#footer .footer-top .footer-contact {
+#footer .footer-top .footer-comentarios {
   margin-bottom: 30px;
 }
 
-#footer .footer-top .footer-contact h3 {
+#footer .footer-top .footer-comentarios h3 {
   font-size: 28px;
   margin: 0 0 10px 0;
   padding: 2px 0 2px 0;
@@ -2240,7 +2675,7 @@ section {
   color: #37517e;
 }
 
-#footer .footer-top .footer-contact p {
+#footer .footer-top .footer-comentarios p {
   font-size: 14px;
   line-height: 24px;
   margin-bottom: 0;

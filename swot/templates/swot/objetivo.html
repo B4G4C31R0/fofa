@@ -22,11 +22,7 @@
   <section class="inner-page">
     <div class="container">
       <p>
-        {{objetivo}} <br><br>
-
-        Objetivo criado por <a href="#">{{objetivo.criador.nome}}</a>
-        
-        {% if request.user == objetivo.criador.usuario %}
+        {% if request.user == objetivo.criador.usuario or request.user == objetivo.fator.elemento.planejamento.lider.usuario %}
           <div class="row">
             <div class="col">
                 <form method="POST">
@@ -37,11 +33,17 @@
                 </form>
             </div>
           </div>
+        {% else %}
+          {{objetivo}} <br><br>
+
+          Objetivo criado por <a href="#">{{objetivo.criador.nome}}</a>
         {%endif%}
 
       </p>
     </div>
   </section>
+
+  
 
 
 

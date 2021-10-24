@@ -28,9 +28,7 @@ def base(request):
 def home(request):
     membro = Membro.objects.get(usuario=request.user)
     conv = Convite.objects.filter(convidado = membro)
-    # plan = Planejamento.objects.filter(lider=membro)
-    plan = Planejamento.objects.all()
-    
+    plan = Planejamento.objects.filter(membros = membro)
     return render(request, 'swot/home.html', {'plan':plan, 'membro':membro, 'conv':conv})
 
 
@@ -45,7 +43,7 @@ def elementos(request, id):
 def fatores(request, id):
     elemento=Elementos.objects.get(id=id)
     fatores=Fatores.objects.filter(elemento=elemento)
-    objetivos = Objetivo.objects.all()
+    objetivos = Objetivo.objects.filter(elemento=elemento)
     return render(request, 'swot/fatores.html',{'elemento':elemento,'fatores':fatores, 'objetivos':objetivos})
 
 
@@ -118,17 +116,18 @@ def adicionar_fatores(request, id):
         add_fat.save()
         return redirect('swot:fatores', id)
     else:
-        return render(request,'swot/adicionar_fatores.html', {'form':form})
+        return render(request,'swot/adicionar_fatores.html', {'form':form, 'elemento':elemento})
 
 
 def editarFator(request, id):
     fator = Fatores.objects.get(id=id)
     form = FatoresForm(request.POST or None, instance=fator)
+    coment = ComentarioFator.objects.filter(fator=fator)
     if form.is_valid():
         form.save()
         return redirect('swot:fatores', fator.elemento.id)
     else:
-        return render(request, 'swot/editarFator.html', {'fator':fator, 'form':form})
+        return render(request, 'swot/editarFator.html', {'fator':fator, 'form':form, 'coment':coment})
 
 
 def adicionar_objetivo(request, id):
@@ -139,6 +138,7 @@ def adicionar_objetivo(request, id):
         add_obj = form.save(commit=False)
         add_obj.criador = membro
         add_obj.fator = fator
+        add_obj.elemento = fator.elemento
         add_obj.concluido = False
         add_obj.save()
         return redirect('swot:fatores', fator.elemento.id)
@@ -146,12 +146,38 @@ def adicionar_objetivo(request, id):
         return render(request,'swot/adicionar_objetivo.html', {'form':form, 'fator':fator})
 
 
+# def adicionar_planejamento(request):
+#     membro=Membro.objects.get(usuario=request.user)
+#     form=PlanejamentoForm(request.POST or None)
+#     if form.is_valid():
+#         plan=form.save(commit=False)
+#         plan.lider = membro
+#         plan.save()
+#         plan.membros.add(membro)
+#         plan.save()
+#         for i in range(4):
+#             element= Elementos()
+#             element.planejamento=plan
+#             element.tipo_elemento = lista_fofa[i]
+#             element.descricao = desc_fofa[i]
+#             element.save()
+#         conv = Convite()
+#         conv.planejamento = plan
+#         conv.lider = membro
+#         conv.save()
+#         return redirect('swot:home')
+#     else:
+#         return render(request,'swot/adicionar_planejamento.html', {'form':form})
+
 def adicionar_planejamento(request):
     membro=Membro.objects.get(usuario=request.user)
-    form=PlanejamentoForm(request.POST or None)
-    if form.is_valid():
-        plan=form.save(commit=False)
+    if request.method == "POST":
+        plan=Planejamento()
+        plan.titulo = request.POST['titulo']
+        plan.descricao = request.POST['descricao']
         plan.lider = membro
+        plan.save()
+        plan.membros.add(membro)
         plan.save()
         for i in range(4):
             element= Elementos()
@@ -159,9 +185,13 @@ def adicionar_planejamento(request):
             element.tipo_elemento = lista_fofa[i]
             element.descricao = desc_fofa[i]
             element.save()
+        conv = Convite()
+        conv.planejamento = plan
+        conv.lider = membro
+        conv.save()
         return redirect('swot:home')
     else:
-        return render(request,'swot/adicionar_planejamento.html', {'form':form})
+        return render(request,'swot/adicionar_planejamento.html')
 
 
 def liderElemento(request, membro, id):
@@ -178,6 +208,18 @@ def liderElemento(request, membro, id):
         elemento.save()
 
     return redirect ('swot:elementos', elemento.planejamento.id)
+
+
+def comentarioFator(request, id):
+    membro = Membro.objects.get(usuario = request.user)
+    fator = Fatores.objects.get(id=id)
+    form = ComentarioFator()
+    if request.method == "POST":
+        form.comentario = request.POST['message']
+        form.fator = fator
+        form.membro = membro
+        form.save()
+    return redirect('swot:editarFator', id)
 
 
 def teste(request):

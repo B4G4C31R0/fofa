@@ -4,51 +4,52 @@
 
 {% block content %}
 
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+  <div class="container">
+    <ol>
+      <li><a href="{% url 'swot:home' %}">Home</a></li>
+      <li>Novo Planejamento</li>
+    </ol>
+  </div>
+</section><!-- End Breadcrumbs -->
+
 <!-- ======= Contact Section ======= -->
 <section id="contact" class="contact">
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">
-      <h2>Contact</h2>
-      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <h2>Novo Planejamento</h2>
+      <p>Aqui você deve informar o título do planejamento e uma descrição sobre seu propósito/finalidade.</p>
     </div>
 
     <div class="row">
-
-      <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+      <div class="d-flex align-items-stretch">
         <form method="POST" class="php-email-form">
-          {% csrf_token %}
-          
-            <div class="form-group col-md-6">
-              <label>Titulo</label>
-              <input type="text" name="titulo" class="form-control" id="titulo">
+            {% csrf_token %}
+            <div class="form-group col-md-12">
+              <label for="titulo">Titulo</label>
+              <input type="text" name="titulo" class="form-control" id="titulo" required>
             </div>
-            <div class="form-group col-md-6">
-              <label>Descricao</label>
-              <input type="text" class="form-control" name="descricao" id="descricao">
+            <div class="form-group col-md-12">
+              <label for="descricao">Descricao</label>
+              <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="10" required></textarea>
+              <!-- <input type="text" name="descricao" class="form-control" id="descricao"> -->
             </div>
-          
-          <button type="submit">Send Message</button></div>
+          <div class="novo-planejamento">
+            <button type="submit">Criar Planejamento</button>
+          </div>
         </form>
       </div>
 
-    </div>
+      <!-- <div class="col-lg-4 mt-5 mt-lg-0 d-flex align-items-stretch">
+        <img class="novo-planejamento" src="static/assets/img/novo_planejamento.jpg" alt="">
+      </div> -->
+
+    </div> <!--fim do row-->
 
   </div>
 </section><!-- End Contact Section -->
-
-{{descricao}}
-
-<div class="row">
-    <div class="col"><br>
-        <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            {{form.errors}}
-            <input type="submit" class="button" value="Cadastrar">
-        </form>
-    </div>
-</div>
 
 
 {% endblock %}

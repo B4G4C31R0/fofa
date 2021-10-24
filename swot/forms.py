@@ -24,3 +24,9 @@ class ObjetivoConcluidoForm(forms.ModelForm):
     class Meta:
         model= Objetivo
         fields= ('descricao','concluido')
+
+
+class ComentarioFatorForm(forms.ModelForm):
+    class Meta:
+        model= ComentarioFator
+        fields= ('comentario',)

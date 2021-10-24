@@ -10,21 +10,108 @@
       <ol>
         <li><a href="{% url 'swot:home' %}">Home</a></li>
         <li><a href="{% url 'swot:elementos' fator.elemento.planejamento.id %}">Elementos</a></li>
-        <li>Fatores</li>
+        <li><a href="{% url 'swot:fatores' fator.elemento.id %}">Fatores</a></li>
+        <li>Fator</li>
       </ol>
     </div>
   </section><!-- End Breadcrumbs -->
 
-<div class="row">
-    <div class="col">
-        <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            {{form.errors}}
-            <input type="submit" class="button" value="Atualizar">
-        </form>
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>{{fator}}</h2>
     </div>
-</div>
+
+    <div class="row">
+      <div class="d-flex align-items-stretch">
+        {% if request.user == fator.criador.usuario or request.user == fator.planejamento.lider.usuario or request.user == fator.elemento.lider.usuario %}
+        <form method="POST" class="php-email-form">
+            {% csrf_token %}
+            <div class="form-group col-md-12">
+              <label for="descricao">Descricao</label>
+              <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="10" required>{{fator}}</textarea>
+              <!-- <input type="text" name="descricao" class="form-control" id="descricao"> -->
+            </div>
+          <div class="atualizar">
+            <button type="submit">Atualizar</button>
+          </div>
+        </form>
+        {%endif%}
+      </div>
+
+      <!-- <div class="col-lg-4 mt-5 mt-lg-0 d-flex align-items-stretch">
+        <img class="novo-planejamento" src="static/assets/img/novo_planejamento.jpg" alt="">
+      </div> -->
+
+    </div> <!--fim do row-->
+
+  </div>
+</section><!-- End Contact Section -->
+
+<!-- ======= Comentarios Section ======= -->
+<section id="comentarios" class="comentarios">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Comentários ({{coment.count}})</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-0 mt-5 mt-lg-0 d-flex align-items-stretch">
+        <form  method="post" action="{% url 'swot:comentarioFator' fator.id %}" role="form" class="php-email-form">
+          {%csrf_token%}
+          <div class="row">
+          <div class="form-group">
+            <label for="name">Faça um comentário:</label>
+            <textarea class="form-control" name="message" rows="3" required></textarea>
+          </div>
+          <div class="my-3">
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your message has been sent. Thank you!</div>
+          </div>
+          <div class="text-center"><button type="submit">Comentar</button></div>
+        </form>
+      </div>
+
+    </div><!--Fim do row-->
+
+  </div>
+</section><!-- End Contact Section -->
+
+
+<section id="todos-coments" class="todos-coments section-bg">
+  <div class="container" data-aos="fade-up">
+
+    <div class="row">
+
+      <div class="col-lg-10">
+        {% for comentario in coment %}
+          <div class="member d-flex align-items-start">
+            <div class="pic">
+              <img src="/static/assets/img/team/user.png" class="img-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <h4>{{comentario.membro.nome}}</h4>
+              <span>{{comentario.horario}}</span>
+              <p>{{comentario.comentario}}</p>
+              <div class="social">
+                <a href="#">like</a>
+                <a href="#">deslike</a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+            Sem comentários.
+          {%endfor%}
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- End Team Section -->
 
 
 {% endblock %}

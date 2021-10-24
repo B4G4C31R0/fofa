@@ -1,19 +1,53 @@
 {% extends 'base.html' %}
 
-{% block title %} Adicionar Fator {%endblock%}
+{% block title %} Novo Fator {%endblock%}
 
 {% block content %}
 
-<div class="row">
-    <div class="col">
-        <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            {{form.errors}}
-            <input type="submit" class="button" value="Cadastrar">
-        </form>
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+  <div class="container">
+    <ol>
+      <li><a href="{% url 'swot:home' %}">Home</a></li>
+      <li><a href="{% url 'swot:elementos' elemento.planejamento.id %}">Elementos</a></li>
+      <li><a href="{% url 'swot:fatores' elemento.id %}">Fatores</a></li>
+      <li>Novo Fator</li>
+    </ol>
+  </div>
+</section><!-- End Breadcrumbs -->
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Novo Fator</h2>
+      <p>Descrição bonita para novo Fator.</p>
     </div>
-</div>
+
+    <div class="row">
+      <div class="d-flex align-items-stretch">
+        <form method="POST" class="php-email-form">
+            {% csrf_token %}
+            <div class="form-group col-md-12">
+              <label for="descricao">Descricao</label>
+              <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="10" required></textarea>
+              <!-- <input type="text" name="descricao" class="form-control" id="descricao"> -->
+            </div>
+          <div class="novo-fator">
+            <button type="submit">Criar Fator</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- <div class="col-lg-4 mt-5 mt-lg-0 d-flex align-items-stretch">
+        <img class="novo-planejamento" src="static/assets/img/novo_planejamento.jpg" alt="">
+      </div> -->
+
+    </div> <!--fim do row-->
+
+  </div>
+</section><!-- End Contact Section -->
 
 
 {% endblock %}
