@@ -72,9 +72,6 @@ def rm_membro(request, id, usuario):
     pass
 
 
-
-
-
 def registro(request):
     form= RegistroForm(request.POST or None)
     if form.is_valid():
@@ -89,7 +86,24 @@ def registro(request):
         return render(request, 'users/registro.html', {'form':form})
 
 
+def registro2(request):
+    form= RegistroForm(request.POST or None)
+    if request.method == "POST":
+        usuario = form.save(commit=False)
+        usuario.username = request.POST['username']
+        usuario.first_name = request.POST['first_name']
+        usuario.save()
+        membro = Membro()
+        membro.usuario = usuario
+        membro.nome = usuario.first_name
+        membro.save()
+        return redirect('swot:home')
+    else:
+        return render(request, 'users/logar.html')
+
+
 def logar_usuario(request):
+    form= RegistroForm(request.POST or None)
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -101,12 +115,12 @@ def logar_usuario(request):
             form_login = AuthenticationForm()
     else:
         form_login = AuthenticationForm()
-    return render(request, 'users/logar.html', {'form_login': form_login})
+    return render(request, 'users/logar.html', {'form_login': form_login, 'form':form})
 
 
 def logout_view(request):
     logout(request)
-    return redirect('/users/login')
+    return redirect('/users/logar')
 
 
 # CONVITES ===================================

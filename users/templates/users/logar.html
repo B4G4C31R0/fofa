@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>FOFA Login</title>
 
     <link rel="stylesheet" href="/static/assets/css/logar.css">
 </head>
@@ -13,42 +13,42 @@
     <!-- <h2>FOFA</h2> -->
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>Create Account</h1>
-                <span>or use your email for registration</span>
-                <input type="text" placeholder="Nome" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Senha" />
-                <input type="password" placeholder="Repetir Senha" />
+            <form method="POST" action="{% url 'users:registro2' %}">
+                {% csrf_token %}
+
+                <h1>Criar Conta</h1>
+                <span>algum texto aqui se quiser</span>
+                <input type="text" id="first_name" name="first_name" placeholder="Nome" />
+                <input type="text" name="username" placeholder="Usuario" />
+                <!-- <input type="password" name="password1" placeholder="Senha" /> -->
+                <!-- <input type="password" name="password2" placeholder="Repetir Senha" /> -->
+                {{form.password1}}
+                {{form.password2}}
                 
-                <button>Sign Up</button>
+                <button>Criar conta</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form method="POST">
+                {% csrf_token %}
                 <h1>Entrar</h1>
-                <!-- <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div> -->
                 <span>Coloque suas credenciais</span>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <a href="#">Forgot your password?</a>
+                <input type="text" name="username" placeholder="Usuario" />
+                <input type="password" name="password" placeholder="Senha" />
                 <button>Entrar</button>
+                <a href="#">Esqueceu sua senha?</a>
             </form>
         </div>
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
-                    <button class="ghost" id="signIn">Sign In</button>
+                    <h1>Cadastro simples!</h1>
+                    <p>Caso já possua uma conta, faça login.</p>
+                    <button class="ghost" id="signIn">Fazer login</button>
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <h1>Eae meu bom! Aqui um texto bem grande pra testar</h1>
-                    <p>Caso ainda não possua uma conta em nosso sistema, registre-se.</p>
+                    <h1>Seja muito bem-vindo ao FOFA!</h1>
+                    <p>Caso ainda não possua uma conta em nosso sistema, você pode se registrar abaixo.</p>
                     <button class="ghost" id="signUp">Registre-se</button>
                 </div>
             </div>
