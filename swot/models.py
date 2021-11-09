@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import date
 # Create your models here.
 
 
@@ -8,10 +8,14 @@ class Planejamento(models.Model):
     descricao = models.CharField(max_length=150, blank=True, null=True)
     lider = models.ForeignKey('users.Membro', on_delete=models.CASCADE, related_name='plan_lider_rel')
     membros = models.ManyToManyField('users.Membro', blank=True, null=True, related_name='plan_membros_rel')
-    finalizado = models.BooleanField(default=False)
+    prazo = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.titulo
+    
+    @property
+    def prazo_final(self):
+        return date.today() < self.prazo
 
 
 class Elementos(models.Model):
@@ -60,6 +64,7 @@ class ComentarioObjetivo(models.Model):
     objetivo = models.ForeignKey('Objetivo', on_delete=models.CASCADE)
     membro = models.ForeignKey('users.Membro', on_delete=models.CASCADE)
     comentario = models.TextField()
+    horario = models.DateTimeField(auto_now=True, blank=True, null=True)
     
     def __str__(self):
         return self.comentario

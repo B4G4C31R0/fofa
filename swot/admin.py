@@ -5,7 +5,7 @@ from .models import *
 
 
 class PlanejamentoAdmin(admin.ModelAdmin):
-    list_display = ['titulo','lider','id']
+    list_display = ['titulo','lider','id', 'prazo']
 
 
 class ElementoAdmin(admin.ModelAdmin):
@@ -25,7 +25,7 @@ class ComentarioFatorAdmin(admin.ModelAdmin):
 
 
 class ComentarioObjetivoAdmin(admin.ModelAdmin):
-    list_display = ['comentario','membro','objetivo']
+    list_display = ['comentario','membro','objetivo','horario']
     
 
 # class Admin(admin.ModelAdmin):

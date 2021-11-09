@@ -79,7 +79,7 @@
     </div><!--Fim do row-->
 
   </div>
-</section><!-- End Contact Section -->
+</section><!-- End Comentários Section -->
 
 
 <section id="todos-coments" class="todos-coments section-bg">
@@ -91,7 +91,11 @@
         {% for comentario in coment %}
           <div class="member d-flex align-items-start">
             <div class="pic">
-              <img src="/static/assets/img/team/user.png" class="img-fluid" alt="">
+              {% if comentario.membro.avatar %}
+                <img src="/media/{{comentario.membro.avatar}}" class="img-fluid" alt="">
+              {% else %}
+                <img src="/static/assets/img/team/user.png" class="img-fluid" alt="">
+              {% endif %}
             </div>
             <div class="member-info">
               <h4>{{comentario.membro.nome}}</h4>

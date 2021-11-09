@@ -101,29 +101,49 @@
         
         <div class="accordion-list">
           <ul>
-            {% for i in plan %}
+            {% for planejamento in plan %}
+              {% if planejamento.prazo_final %}
                 <li>
-                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-{{i.id}}"><span>#</span> {{i}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                  <div id="accordion-list-{{i.id}}" class="collapse show" data-bs-parent=".accordion-list">
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-{{planejamento.id}}"><span>#</span> {{planejamento}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-{{planejamento.id}}" class="collapse show" data-bs-parent=".accordion-list">
                     <p>
-                      {{i.descricao}} <br><br>
+                      {{planejamento.descricao}} <br><br>
                       <div class="row">
                         <div class="col-md-3">
-                          {% if request.user == i.lider.usuario %}
-                          <a href="{% url 'swot:elementos' i.id %}">Gerenciar
+                          {% if request.user == planejamento.lider.usuario %}
+                          <a href="{% url 'swot:elementos' planejamento.id %}">Gerenciar
                             <i class="bx bx-cog">  </i> <!-- não são espaços-->
                           </a>
                           {%else%}
-                          <a href="{% url 'swot:elementos' i.id %}">Acessar
+                          <a href="{% url 'swot:elementos' planejamento.id %}">Acessar
                             <i class="bx bx-log-in-circle">   </i> <!-- não são espaços-->
                           </a>
                           {%endif%}
                         </div>
                       </div>
-                      
                     </p>
                 </li>
-              {% empty %}
+              {% else %}
+                <li>
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-{{planejamento.id}}"><span>#</span> {{planejamento}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-{{planejamento.id}}" class="collapse show" data-bs-parent=".accordion-list">
+                    <p>
+                      {{planejamento.descricao}} <br><br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          {% if request.user == planejamento.lider.usuario %}
+                          <a href="{% url 'swot:elementos' planejamento.id %}">Gerenciar
+                            <i class="bx bx-cog">  </i> <!-- não são espaços-->
+                          </a>
+                          {%else%}
+                           <strong>Fora do Prazo</strong> 
+                          {%endif%}
+                        </div>
+                      </div>
+                    </p>
+                </li>
+              {% endif %}
+            {% empty %}
                 <li>
                   Você ainda não possui planejamentos ativos. Para criar um, basta clicar em <strong>Novo Planejamento</strong>.
                   

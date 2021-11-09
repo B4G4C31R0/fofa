@@ -2,6 +2,7 @@ from fofa.settings import ALLOWED_HOSTS
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from datetime import date, datetime
 
 from .models import *
 from users.models import *
@@ -50,11 +51,12 @@ def fatores(request, id):
 def objetivo(request, id):
     objetivo=Objetivo.objects.get(id=id)
     form = ObjetivoConcluidoForm(request.POST or None, instance=objetivo)
+    coment = ComentarioObjetivo.objects.filter(objetivo=objetivo)
     if form.is_valid():
         form.save()
         return redirect('swot:fatores', objetivo.fator.elemento.id)
     else:
-        return render(request, 'swot/objetivo.html',{'objetivo':objetivo, 'form':form})
+        return render(request, 'swot/objetivo.html',{'objetivo':objetivo, 'form':form, 'coment':coment})
 
 
 def editarMembro(request, id_plan, id_memb):
@@ -220,6 +222,18 @@ def comentarioFator(request, id):
         form.membro = membro
         form.save()
     return redirect('swot:editarFator', id)
+
+
+def comentarioObjetivo(request, id):
+    membro = Membro.objects.get(usuario = request.user)
+    objetivo = Objetivo.objects.get(id=id)
+    form = ComentarioObjetivo()
+    if request.method == "POST":
+        form.comentario = request.POST['message']
+        form.objetivo = objetivo
+        form.membro = membro
+        form.save()
+    return redirect('swot:objetivo', id)
 
 
 def teste(request):
