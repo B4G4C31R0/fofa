@@ -130,15 +130,15 @@
                     <p>
                       {{planejamento.descricao}} <br><br>
                       <div class="row">
-                        <div class="col-md-3">
-                          {% if request.user == planejamento.lider.usuario %}
-                          <a href="{% url 'swot:elementos' planejamento.id %}">Gerenciar
-                            <i class="bx bx-cog">  </i> <!-- não são espaços-->
-                          </a>
-                          {%else%}
-                           <strong>Fora do Prazo</strong> 
-                          {%endif%}
-                        </div>
+                        {% if request.user == planejamento.lider.usuario %}
+                          <div class="col-md-3">
+                            <a href="{% url 'swot:elementos' planejamento.id %}">Gerenciar
+                              <i class="bx bx-cog">  </i> <!-- não são espaços-->
+                            </a>
+                          </div>
+                        {%else%}
+                          <strong>Este planejamento encerrou-se em {{planejamento.prazo}}</strong> 
+                        {%endif%}
                       </div>
                     </p>
                 </li>

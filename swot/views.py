@@ -177,6 +177,7 @@ def adicionar_planejamento(request):
         plan=Planejamento()
         plan.titulo = request.POST['titulo']
         plan.descricao = request.POST['descricao']
+        plan.prazo = request.POST['prazo']
         plan.lider = membro
         plan.save()
         plan.membros.add(membro)
